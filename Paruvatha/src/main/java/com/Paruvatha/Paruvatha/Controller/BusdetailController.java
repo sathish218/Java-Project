@@ -1,51 +1,43 @@
 package com.Paruvatha.Paruvatha.Controller;
 
+import com.Paruvatha.Paruvatha.Model.BusSeat;
 import com.Paruvatha.Paruvatha.Model.Busdetails;
-import com.Paruvatha.Paruvatha.Service.BusdetailsService;
+import com.Paruvatha.Paruvatha.Repository.BusdetailsRepository;
+import com.Paruvatha.Paruvatha.Service.BusSeatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
-@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/buses")
-public class BusdetailController {
+@RequestMapping("/api/seats")
+@CrossOrigin(origins = "*") // Allow frontend to connect
+public class BusSeatController {
 
     @Autowired
-    private BusdetailsService busService;
+    private BusSeatService busSeatService;
 
-    @PostMapping
-    public Busdetails addBus(@RequestBody Busdetails bus) {
-        return busService.addBus(bus);
+    @Autowired
+    private BusdetailsRepository busdetailsRepository;
+
+    // Get booked seats for a bus
+    @GetMapping("/booked/{busId}")
+    public List<BusSeat> getBookedSeats(@PathVariable Long busId) {
+        Busdetails bus = busdetailsRepository.findById(busId).orElseThrow();
+        return busSeatService.getBookedSeatsByBus(bus);
     }
 
-
-    @GetMapping
-    public List<Busdetails> getAllBuses() {
-        return busService.getAllBuses();
+    // Book seats (after payment)
+    @PostMapping("/book")
+    public String bookSeats(@RequestParam Long busId, @RequestBody List<String> seatNumbers) {
+        Busdetails bus = busdetailsRepository.findById(busId).orElseThrow();
+        busSeatService.markSeatsAsBooked(bus, seatNumbers);
+        return "Seats successfully booked!";
     }
 
-
-    @GetMapping("/{id}")
-    public Busdetails getBusById(@PathVariable Long id) {
-        return busService.getBusById(id);
-    }
-
-
-    @DeleteMapping("/{id}")
-    public String deleteBus(@PathVariable Long id) {
-        busService.deleteBus(id);
-        return "Bus deleted successfully!";
-    }
-
-
-    @GetMapping("/search")
-    public List<Busdetails> getAvailableBuses(
-            @RequestParam String from,
-            @RequestParam String to,
-            @RequestParam String date) {
-        return busService.getAvailableBuses(from, to, LocalDate.parse(date));
+    // Get available seats
+    @GetMapping("/available/{busId}")
+    public List<BusSeat> getAvailableSeats(@PathVariable Long busId) {
+        return busSeatService.getAvailableSeats(busId);
     }
 }
