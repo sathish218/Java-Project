@@ -5,8 +5,6 @@ Paruvatha Bus-Ticket Booking Website:
 The website uses modern frontend technologies 💻 for the user interface and Spring Boot ⚙️ as the backend framework to manage business logic and data handling. It leverages a SQL database 🗃️ for persistent storage of user and booking information.
 The functionality is modeled after platforms like MakeMyTrip and Redbus 🌐. Users can search for routes and destinations 🔍, and upon selection, view a list of available buses 🚍. After seat selection and successful payment 💳, the booked seats are marked as unavailable ❌ in real time, ensuring accuracy in seat availability ✅.
 
-
-For security, I implemented JWT (JSON Web Token) 🔐 to handle authentication and authorization, securing APIs and enabling safe data transfer between client and server 🔄. I explored JWT usage thoroughly, learning how and where to implement it effectively in a Spring Boot environment 🧠.
 Throughout the development process, I gained hands-on experience with the Spring Boot architecture 🧱, particularly the Controller, Service, and Repository layers. I used Postman 📬 for API testing and Swagger 📘 for generating interactive API documentation.
 
 SPRING BOOT LAYERS:
@@ -74,4 +72,14 @@ Uses Spring Data JPA to avoid writing SQL or boilerplate DAO code.
 Interfaces typically extend JpaRepository or CrudRepository.
 
 ## ER DIAGRAM 
+
+https://docs.google.com/document/d/1RpBsr0pv3KiRkdf03Gr6Rd56pEGutXepJpe0GJs-byk/edit?tab=t.0
+
+## Architecture Diagram
+
+https://docs.google.com/document/d/1MamdkhSR0qnuDUgKV680q6bkyhC1UET_UeOqeYdtRto/edit?tab=t.0
+
+## JWT AUTHENTICATION - Learning
+
+https://docs.google.com/document/d/1KvNKW3z6GL02xK5p_KYD6dFMBrxj_-c-cDfdaLYo250/edit?tab=t.0#heading=h.9c832bot7uqg
 
