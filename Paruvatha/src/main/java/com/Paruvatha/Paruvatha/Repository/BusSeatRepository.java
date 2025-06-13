@@ -1,32 +1,19 @@
 package com.Paruvatha.Paruvatha.Repository;
 
 import com.Paruvatha.Paruvatha.Model.BusSeat;
+import com.Paruvatha.Paruvatha.Model.Busdetails;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface BusSeatRepository extends JpaRepository<BusSeat, Long> {
 
-    // Find all seats by busId and availability status
-    List<BusSeat> findByBusIdAndAvailable(String busId, boolean available);
+    // Find all booked seats for a specific bus (where isBooked = true)
+    List<BusSeat> findByBusdetailsAndIsBookedTrue(Busdetails busdetails);
 
-    // Find all seats for a specific bus
-    List<BusSeat> findByBusId(String busId);
+    // Find seats by bus details and a list of seat numbers
+    List<BusSeat> findByBusdetailsAndSeatNumberIn(Busdetails busdetails, List<String> seatNumbers);
 
-    // Find seat by busId and seatNumber (useful for seat selection and updates)
-    BusSeat findByBusIdAndSeatNumber(String busId, String seatNumber);
-
-    // ✅ Find multiple seats by busId and a list of seat numbers
-    List<BusSeat> findByBusIdAndSeatNumberIn(String busId, List<String> seatNumbers);
-
-    // Find all available seats for a bus
-    List<BusSeat> findByAvailableTrue();
-
-    // Find all unavailable seats for a bus
-    List<BusSeat> findByAvailableFalse();
-
-    // Find seats by busId and seat type (e.g., Seater, Sleeper)
-    List<BusSeat> findByBusIdAndSeatType(String busId, String seatType);
+    // Find seats by bus details ID and booking status (isBooked)
+    List<BusSeat> findByBusdetailsIdAndIsBooked(Long busdetailsId, boolean isBooked);
 }

@@ -14,7 +14,15 @@ public class User {
     private String name;
     private String phoneNumber;
     private String email;
-    private String passWord; // ✅ use lowercase "password"
+    private String passWord;
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+    public void setRole(String role){
+        this.role = role;
+    }
 
     public String getEmail() {
         return email;
